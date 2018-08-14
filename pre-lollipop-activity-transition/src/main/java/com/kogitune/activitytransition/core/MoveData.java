@@ -19,6 +19,9 @@ package com.kogitune.activitytransition.core;
 
 import android.view.View;
 
+/**
+ *
+ */
 public class MoveData {
     public int leftDelta;
     public int topDelta;
