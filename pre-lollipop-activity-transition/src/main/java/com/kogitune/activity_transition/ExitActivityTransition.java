@@ -20,6 +20,7 @@ package com.kogitune.activity_transition;
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
 import com.kogitune.activity_transition.core.MoveData;
@@ -39,14 +40,22 @@ public class ExitActivityTransition {
         this.interpolator = interpolator;
         return this;
     }
+
     public ExitActivityTransition exitListener(Animator.AnimatorListener listener) {
         this.listener = listener;
         return this;
     }
 
     public void exit(final Activity activity) {
+        exit(activity, null);
+    }
+
+    public void exit(final Activity activity, View rootView) {
         if (interpolator == null) {
             interpolator = new DecelerateInterpolator();
+        }
+        if (rootView != null) {
+            TransitionAnimation.startAlphaAnimation(rootView, 100, 0, 1, 0);
         }
         TransitionAnimation.startExitAnimation(moveData, interpolator, new Runnable() {
             @Override
@@ -54,7 +63,7 @@ public class ExitActivityTransition {
                 activity.finish();
                 activity.overridePendingTransition(0, 0);
             }
-        },listener);
+        }, listener);
     }
 
 }

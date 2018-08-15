@@ -49,6 +49,7 @@ public class SubActivity extends AppCompatActivity {
                     }
                 })
                 .to(findViewById(R.id.sub_imageView))
+                .root(findViewById(R.id.root_view))
                 .start(savedInstanceState);
         exitTransition.exitListener(new AnimatorListenerAdapter() {
             @Override
@@ -65,6 +66,6 @@ public class SubActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        exitTransition.exit(this);
+        exitTransition.exit(this, findViewById(R.id.root_view));
     }
 }

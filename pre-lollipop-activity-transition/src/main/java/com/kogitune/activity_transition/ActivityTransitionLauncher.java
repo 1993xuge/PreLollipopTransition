@@ -57,7 +57,14 @@ public class ActivityTransitionLauncher {
 
     public void launch(Intent intent) {
         intent.putExtras(createBundle());
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, 1);
         activity.overridePendingTransition(0, 0);
+    }
+
+    public void exit(Intent intent) {
+        intent.putExtras(createBundle());
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.overridePendingTransition(0, 0);
+        activity.finish();
     }
 }

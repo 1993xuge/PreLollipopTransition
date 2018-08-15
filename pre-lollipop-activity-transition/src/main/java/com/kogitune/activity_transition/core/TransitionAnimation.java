@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
+import com.kogitune.activity_transition.Utils;
+
 import java.lang.ref.WeakReference;
 
 public class TransitionAnimation {
@@ -49,7 +51,6 @@ public class TransitionAnimation {
         if (transitionData.imageFilePath != null) {
             setImageToView(toView, transitionData.imageFilePath);
         }
-
         final MoveData moveData = new MoveData();
         moveData.toView = toView;
         moveData.duration = duration;
@@ -69,6 +70,9 @@ public class TransitionAnimation {
 
                     moveData.widthScale = (float) transitionData.thumbnailWidth / toView.getWidth();
                     moveData.heightScale = (float) transitionData.thumbnailHeight / toView.getHeight();
+
+                    moveData.toView = Utils.cloneView(toView);
+                    Utils.getRootView(toView.getContext()).addView(moveData.toView);
                     runEnterAnimation(moveData, interpolator, listener);
                     return true;
                 }
@@ -76,7 +80,6 @@ public class TransitionAnimation {
         }
         return moveData;
     }
-
 
     private static void runEnterAnimation(MoveData moveData, TimeInterpolator interpolator, Animator.AnimatorListener listener) {
         final View toView = moveData.toView;
@@ -140,5 +143,10 @@ public class TransitionAnimation {
                 .setListener(listener)
                 .translationY(topDelta);
         view.postDelayed(endAction, duration);
+    }
+
+    public static void startAlphaAnimation(View view, long duration, long delay, float fromAlpha, float toAlpha) {
+        view.setAlpha(fromAlpha);
+        view.animate().alpha(toAlpha).setDuration(duration).setStartDelay(delay).start();
     }
 }
