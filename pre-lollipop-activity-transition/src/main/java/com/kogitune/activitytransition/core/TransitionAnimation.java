@@ -20,28 +20,20 @@ package com.kogitune.activitytransition.core;
 import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 
 public class TransitionAnimation {
     public static final Object lock = new Object();
     private static final String TAG = "Transition";
-    private static final int MAX_TIME_TO_WAIT = 3000;
     public static WeakReference<Bitmap> bitmapCache;
-    public static boolean isImageFileReady = false;
 
     public static MoveData startAnimation(Context context, final View toView, Bundle transitionBundle, Bundle savedInstanceState, final int duration, final TimeInterpolator interpolator) {
         final TransitionData transitionData = new TransitionData(context, transitionBundle);
-        if (transitionData.imageFilePath != null) {
-            setImageToView(toView, transitionData.imageFilePath);
-        }
         final MoveData moveData = new MoveData();
         moveData.toView = toView;
         moveData.duration = duration;
@@ -85,38 +77,6 @@ public class TransitionAnimation {
                 scaleX(1).scaleY(1).
                 translationX(0).translationY(0).
                 setInterpolator(interpolator);
-    }
-
-    public static void setImageToView(View toView, String imageFilePath) {
-        Bitmap bitmap;
-        if (bitmapCache == null || (bitmap = bitmapCache.get()) == null) {
-            synchronized (lock) {
-                while (!isImageFileReady) {
-                    try {
-                        lock.wait(MAX_TIME_TO_WAIT);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            }
-            // Cant get bitmap by static field
-            bitmap = BitmapFactory.decodeFile(imageFilePath);
-        } else {
-            bitmapCache.clear();
-        }
-        setImageToView(toView, bitmap);
-    }
-
-    private static void setImageToView(View toView, Bitmap bitmap) {
-        if (toView instanceof ImageView) {
-            final ImageView toImageView = (ImageView) toView;
-            toImageView.setImageBitmap(bitmap);
-        } else {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
-                toView.setBackground(new BitmapDrawable(toView.getResources(), bitmap));
-            } else {
-                toView.setBackgroundDrawable(new BitmapDrawable(toView.getResources(), bitmap));
-            }
-        }
     }
 
     public static void startExitAnimation(MoveData moveData, TimeInterpolator interpolator, final Runnable endAction) {

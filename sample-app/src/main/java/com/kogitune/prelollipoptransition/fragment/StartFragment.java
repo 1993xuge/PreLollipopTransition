@@ -19,7 +19,6 @@ package com.kogitune.prelollipoptransition.fragment;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
@@ -44,7 +43,6 @@ public class StartFragment extends Fragment {
                 final EndFragment toFragment = new EndFragment();
                 FragmentTransitionLauncher
                         .with(view.getContext())
-                        .image(BitmapFactory.decodeResource(getResources(), R.drawable.photo))
                         .from(view.findViewById(R.id.fragment_start_imageview))
                         .prepare(toFragment);
 

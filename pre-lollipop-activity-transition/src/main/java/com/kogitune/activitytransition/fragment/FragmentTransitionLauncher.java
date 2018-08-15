@@ -19,7 +19,6 @@ package com.kogitune.activitytransition.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
@@ -32,7 +31,6 @@ public class FragmentTransitionLauncher {
 
     private final Context context;
     private View fromView;
-    private Bitmap bitmap;
 
 
     private FragmentTransitionLauncher(Context context) {
@@ -48,13 +46,8 @@ public class FragmentTransitionLauncher {
         return this;
     }
 
-    public FragmentTransitionLauncher image(final Bitmap bitmap) {
-        this.bitmap = bitmap;
-        return this;
-    }
-
     public void prepare(Fragment toFragment) {
-        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView, bitmap);
+        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView);
         if (Build.VERSION.SDK_INT >= 21) {
             toFragment.setSharedElementEnterTransition(new ChangeBounds());
             toFragment.setSharedElementReturnTransition(new ChangeBounds());
@@ -63,7 +56,7 @@ public class FragmentTransitionLauncher {
     }
 
     public void prepare(android.support.v4.app.Fragment toFragment) {
-        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView, bitmap);
+        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView);
         if (Build.VERSION.SDK_INT >= 21) {
             toFragment.setSharedElementEnterTransition(new ChangeBounds());
             toFragment.setSharedElementReturnTransition(new ChangeBounds());

@@ -18,7 +18,6 @@
 package com.kogitune.prelollipoptransition;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 // use startActivityForResult
                 final ActivityTransitionLauncher activityTransitionLauncher = ActivityTransitionLauncher
                         .with(MainActivity.this)
-                        .image(BitmapFactory.decodeResource(getResources(), R.drawable.photo))
                         .from(v, "image");
                 Bundle transitionBundle = activityTransitionLauncher.createBundle();
                 intent.putExtras(transitionBundle);

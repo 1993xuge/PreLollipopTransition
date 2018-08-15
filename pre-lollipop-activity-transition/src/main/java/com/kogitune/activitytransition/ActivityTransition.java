@@ -20,6 +20,7 @@ package com.kogitune.activitytransition;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,26 +75,37 @@ public class ActivityTransition {
         final Bundle bundle = fromIntent.getExtras();
         if (Build.VERSION.SDK_INT >= 21) {
             final TransitionData transitionData = new TransitionData(toView.getContext(), bundle);
-            if (transitionData.imageFilePath != null) {
-                TransitionAnimation.setImageToView(toView, transitionData.imageFilePath);
-            }
 
             ViewCompat.setTransitionName(toView, toViewName);
-            final Window window = ((Activity) toView.getContext()).getWindow();
-            TransitionSet set = new TransitionSet();
-            set.addTransition(new ChangeBounds());
-            set.addTransition(new ChangeImageTransform());
-            set.setInterpolator(interpolator);
+            Activity activity = getActivityFromView(toView);
+            if (activity != null) {
+                final Window window = activity.getWindow();
+                TransitionSet set = new TransitionSet();
+                set.addTransition(new ChangeBounds());
+                set.addTransition(new ChangeImageTransform());
+                set.setInterpolator(interpolator);
+                
+                window.setSharedElementEnterTransition(set);
+                window.setSharedElementReturnTransition(set);
 
-            window.setSharedElementEnterTransition(set);
-            window.setSharedElementReturnTransition(set);
-
-            return new ExitActivityTransition(null);
+                return new ExitActivityTransition(null);
+            }
         }
         final Context context = toView.getContext();
         final MoveData moveData = TransitionAnimation.startAnimation(context, toView, bundle, savedInstanceState, duration, interpolator);
 
         return new ExitActivityTransition(moveData);
+    }
+
+    public static Activity getActivityFromView(View view) {
+        Context context = view.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 
 }

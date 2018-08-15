@@ -19,7 +19,6 @@ package com.kogitune.activitytransition;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -34,8 +33,6 @@ public class ActivityTransitionLauncher {
     private final Activity activity;
     private String fromViewName;
     private View fromView;
-    private Bitmap bitmap;
-
 
     private ActivityTransitionLauncher(Activity activity) {
         this.activity = activity;
@@ -51,13 +48,8 @@ public class ActivityTransitionLauncher {
         return this;
     }
 
-    public ActivityTransitionLauncher image(final Bitmap bitmap) {
-        this.bitmap = bitmap;
-        return this;
-    }
-
     public Bundle createBundle() {
-        return TransitionBundleFactory.createTransitionBundle(activity, fromView, bitmap);
+        return TransitionBundleFactory.createTransitionBundle(activity, fromView);
     }
 
     public Bundle createOptions() {
