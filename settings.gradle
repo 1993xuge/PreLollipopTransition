@@ -1,3 +1,4 @@
+include ':customsharetest'
 /*
  * Copyright (C) 2015 takahirom
  *
