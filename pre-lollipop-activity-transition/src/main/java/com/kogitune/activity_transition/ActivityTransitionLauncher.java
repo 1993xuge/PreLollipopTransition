@@ -30,7 +30,6 @@ public class ActivityTransitionLauncher {
 
     private final Activity activity;
     private View fromView;
-    private Bitmap bitmap;
 
 
     private ActivityTransitionLauncher(Activity activity) {
@@ -46,13 +45,8 @@ public class ActivityTransitionLauncher {
         return this;
     }
 
-    public ActivityTransitionLauncher image(final Bitmap bitmap) {
-        this.bitmap = bitmap;
-        return this;
-    }
-
     public Bundle createBundle() {
-        return TransitionBundleFactory.createTransitionBundle(activity, fromView, bitmap);
+        return TransitionBundleFactory.createTransitionBundle(activity, fromView);
     }
 
     public void launch(Intent intent) {

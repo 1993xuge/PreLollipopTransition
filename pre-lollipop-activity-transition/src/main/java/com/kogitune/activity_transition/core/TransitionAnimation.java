@@ -48,9 +48,6 @@ public class TransitionAnimation {
         }
 
         final TransitionData transitionData = new TransitionData(context, transitionBundle);
-        if (transitionData.imageFilePath != null) {
-            setImageToView(toView, transitionData.imageFilePath);
-        }
         final MoveData moveData = new MoveData();
         moveData.toView = toView;
         moveData.duration = duration;

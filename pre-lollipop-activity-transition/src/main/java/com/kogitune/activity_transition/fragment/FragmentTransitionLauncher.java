@@ -56,7 +56,7 @@ public class FragmentTransitionLauncher {
      * You should call this method after init your argumentsBundle.otherwise the transitionBundle will be not work.
      */
     public void prepare(Fragment toFragment) {
-        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView, bitmap);
+        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView);
         Bundle arguments = toFragment.getArguments();
         if (arguments == null) {
             arguments = new Bundle();
@@ -68,7 +68,7 @@ public class FragmentTransitionLauncher {
      * You should call this method after init your argumentsBundle.otherwise the transitionBundle will be not work.
      */
     public void prepare(android.support.v4.app.Fragment toFragment) {
-        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView, bitmap);
+        final Bundle transitionBundle = TransitionBundleFactory.createTransitionBundle(context, fromView);
         Bundle arguments = toFragment.getArguments();
         if (arguments == null) {
             arguments = new Bundle();
