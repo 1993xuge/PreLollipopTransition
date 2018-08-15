@@ -15,11 +15,10 @@
  *
  */
 
-package com.kogitune.activity_transition;
+package com.kogitune.activity_transition.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 

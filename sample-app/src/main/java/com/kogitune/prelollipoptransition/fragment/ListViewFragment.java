@@ -27,8 +27,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
-import com.kogitune.prelollipoptransition.ListViewActivity;
+import com.kogitune.activity_transition.activity.ActivityTransitionLauncher;
 import com.kogitune.prelollipoptransition.R;
 import com.kogitune.prelollipoptransition.SubActivity;
 

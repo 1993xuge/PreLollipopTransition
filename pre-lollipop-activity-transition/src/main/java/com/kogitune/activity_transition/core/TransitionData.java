@@ -20,8 +20,6 @@ package com.kogitune.activity_transition.core;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.kogitune.activity_transition.BuildConfigUtils;
-
 public class TransitionData {
     public static final String EXTRA_IMAGE_LEFT = ".left";
     public static final String EXTRA_IMAGE_TOP = ".top";
@@ -35,7 +33,6 @@ public class TransitionData {
     private String appId;
 
     public TransitionData(Context context, int thumbnailLeft, int thumbnailTop, int thumbnailWidth, int thumbnailHeight) {
-        setAppId(context);
         this.thumbnailLeft = thumbnailLeft;
         this.thumbnailTop = thumbnailTop;
         this.thumbnailWidth = thumbnailWidth;
@@ -43,15 +40,10 @@ public class TransitionData {
     }
 
     public TransitionData(Context context, Bundle bundle) {
-        setAppId(context);
         thumbnailTop = bundle.getInt(appId + EXTRA_IMAGE_TOP);
         thumbnailLeft = bundle.getInt(appId + EXTRA_IMAGE_LEFT);
         thumbnailWidth = bundle.getInt(appId + EXTRA_IMAGE_WIDTH);
         thumbnailHeight = bundle.getInt(appId + EXTRA_IMAGE_HEIGHT);
-    }
-
-    private void setAppId(Context context) {
-        appId = (String) BuildConfigUtils.getBuildConfigValue(context, "APPLICATION_ID");
     }
 
 

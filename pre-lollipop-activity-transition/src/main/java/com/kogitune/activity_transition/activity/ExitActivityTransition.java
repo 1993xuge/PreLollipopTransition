@@ -15,7 +15,7 @@
  *
  */
 
-package com.kogitune.activity_transition;
+package com.kogitune.activity_transition.activity;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;

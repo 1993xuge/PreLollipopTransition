@@ -23,8 +23,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.kogitune.activity_transition.ActivityTransition;
-import com.kogitune.activity_transition.ExitActivityTransition;
+import com.kogitune.activity_transition.activity.ActivityTransition;
+import com.kogitune.activity_transition.activity.ExitActivityTransition;
 
 
 public class SubActivity extends AppCompatActivity {
